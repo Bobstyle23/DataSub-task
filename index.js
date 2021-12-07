@@ -23,11 +23,24 @@ class AClass {
   }
   fill() {
     let randoms = Array.from({ length: 10 }, () =>
-      Math.floor(Math.random() * 10)
+      Math.floor(Math.random() * 10 + 1)
     );
     for (let i = 0; i < this.numbers.length; i++) {
       return (this.numbers = randoms);
     }
+  }
+
+  getFactorial(n) {
+    if (n === 0) {
+      return 1;
+    }
+    return n * this.getFactorial(n - 1);
+  }
+  factorial() {
+    for (let i = 0; i < this.numbers.length; i++) {
+      this.factorials.push(this.getFactorial(this.numbers[i]));
+    }
+    return this.factorials;
   }
 
   sort() {
@@ -37,30 +50,12 @@ class AClass {
   get filled() {
     return this.fill();
   }
+  get values() {
+    return this.factorial();
+  }
 }
 
-class Class1 extends AClass {}
-
 const inst = new AClass();
-const child = new Class1();
-console.log(child.sort);
+
 console.log(inst.filled);
-
-// class AClass {
-//   constructor(numbers) {
-//     this.numbers = [numbers];
-//     if (this.constructor === AClass) {
-//       throw new Error("Intance of Abstract class cannot be instantiated");
-//     }
-
-//     AClass.prototype.fill = function () {
-//       let randoms = Array.from({ length: 10 }, () =>
-//         Math.floor(Math.random() * 10)
-//       );
-//       for (let i = 0; i < this.numbers.length; i++) {
-//         console.log(this.numbers);
-//         return (this.numbers = randoms);
-//       }
-//     };
-//   }
-// }
+console.log(inst.values);
