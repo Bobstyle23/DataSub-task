@@ -1,6 +1,4 @@
-//The constructor takes one parameter “n” and calls the “fill” method.
 //The fill method can only be called from methods of the AClass class.
-//Implement two child classes “Class1” and “Class2” with a method “sort” which sorts the array of Numbers and then produces an array of factorials.
 
 class AClass {
   constructor(numbers, n) {
@@ -26,7 +24,7 @@ class AClass {
     }
     return n * this.getFactorial(n - 1);
   }
-  factorial(n) {
+  factorial() {
     let factorialArr = [];
     for (let i = 0; i < this.numbers.length; i++) {
       factorialArr.push(this.getFactorial(this.numbers[i]));
@@ -38,7 +36,7 @@ class AClass {
     throw new Error("Abstract sort method has no implementation");
   }
 
-  get filled() {
+  static get filled() {
     return this.fill();
   }
   get factorialValues() {
@@ -93,7 +91,7 @@ class Class2 extends AClass {
 const child1 = new Class1();
 const child2 = new Class2();
 
-console.log(child1.sorted);
-console.log(child1.factorialValues);
-console.log(child2.sortedArr);
-console.log(child2.factorialValues);
+// console.log(child1.sorted);
+// console.log(child1.factorialValues);
+// console.log(child2.sortedArr);
+// console.log(child2.factorialValues);
