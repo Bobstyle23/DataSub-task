@@ -26,7 +26,7 @@ class AClass {
     }
     return n * this.getFactorial(n - 1);
   }
-  factorial() {
+  factorial(n) {
     let factorialArr = [];
     for (let i = 0; i < this.numbers.length; i++) {
       factorialArr.push(this.getFactorial(this.numbers[i]));
@@ -58,6 +58,7 @@ class Class1 extends AClass {
       return (this.sortedNumbers = sortedVal);
     }
   }
+
   get sorted() {
     return this.sort();
   }
@@ -91,6 +92,7 @@ class Class2 extends AClass {
 
 const child1 = new Class1();
 const child2 = new Class2();
+
 console.log(child1.sorted);
 console.log(child1.factorialValues);
 console.log(child2.sortedArr);
