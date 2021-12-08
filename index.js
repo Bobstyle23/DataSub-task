@@ -1,29 +1,19 @@
-// Create an abstract class “AClass” which will have a property “Numbers” of type Array, which will contain n natural numbers.
-//Also, AClass must have a “fill” method that fills the Numbers array with random numbers;
-//the “factorial” method, which returns an array of factorials from the Numbers array;
-//and the abstract method “sort”.
 //The constructor takes one parameter “n” and calls the “fill” method.
 //The fill method can only be called from methods of the AClass class.
-//The factorial method can be called from the AClass class and from child classes.
 //Implement two child classes “Class1” and “Class2” with a method “sort” which sorts the array of Numbers and then produces an array of factorials.
-//The sorting algorithm for classes “Class1” and “Class2” must be different.
-
-//Create abstract class called "AClass"
-//Create array property in AClass called "Numbers" which contains numbers "n"
-//Create method called "fill()" in AClass which will fill "Numbers" with random numbers
-//Create method called "factorial" in AClass which returns array of factorials from "Numbers" array
 
 class AClass {
-  constructor(numbers, factorials) {
+  constructor(numbers, n) {
     this.numbers = [numbers];
-    this.factorials = [factorials];
-    // if (this.constructor === AClass) {
-    //   throw new Error("Instance of Abstract class cannot be instantiated");
-    // }
+    this.fill(n);
+    if (this.constructor === AClass) {
+      throw new Error("Instance of Abstract class cannot be instantiated");
+    }
   }
+
   fill() {
     let randoms = Array.from({ length: 10 }, () =>
-      Math.floor(Math.random() * 10 + 1)
+      Math.floor(Math.random() * 10)
     );
     for (let i = 0; i < this.numbers.length; i++) {
       return (this.numbers = randoms);
@@ -37,25 +27,71 @@ class AClass {
     return n * this.getFactorial(n - 1);
   }
   factorial() {
+    let factorialArr = [];
     for (let i = 0; i < this.numbers.length; i++) {
-      this.factorials.push(this.getFactorial(this.numbers[i]));
+      factorialArr.push(this.getFactorial(this.numbers[i]));
     }
-    return this.factorials;
+    return factorialArr;
   }
 
   sort() {
-    throw new Error("Abstract method has no implementation");
+    throw new Error("Abstract sort method has no implementation");
   }
 
   get filled() {
     return this.fill();
   }
-  get values() {
+  get factorialValues() {
     return this.factorial();
   }
 }
 
-const inst = new AClass();
+class Class1 extends AClass {
+  constructor(sort, numbers, sortedNumbers) {
+    super(sort, numbers);
+    this.sortedNumbers = [sortedNumbers];
+  }
 
-console.log(inst.filled);
-console.log(inst.values);
+  sort() {
+    for (let i = 0; i < this.numbers.length; i++) {
+      let sortedVal = this.numbers.sort();
+      return (this.sortedNumbers = sortedVal);
+    }
+  }
+  get sorted() {
+    return this.sort();
+  }
+}
+
+class Class2 extends AClass {
+  constructor(sort, numbers) {
+    super(sort, numbers);
+  }
+
+  sort() {
+    let done = false;
+    while (!done) {
+      done = true;
+      for (let i = 0; i < this.numbers.length; i += 1) {
+        if (this.numbers[i - 1] > this.numbers[i]) {
+          done = false;
+          let temp = this.numbers[i - 1];
+          this.numbers[i - 1] = this.numbers[i];
+          this.numbers[i] = temp;
+        }
+      }
+    }
+    return this.numbers;
+  }
+
+  get sortedArr() {
+    return this.sort();
+  }
+}
+
+const child1 = new Class1();
+const child2 = new Class2();
+console.log(child1.sorted);
+console.log(child1.factorialValues);
+console.log(child2.sortedArr);
+console.log(child2.factorialValues);
